@@ -8,6 +8,7 @@ export class Ripple implements Drawable, Updatable {
     private current: number[][];
     private next: number[][];
     private damping = 0.99;
+    private xoffset = 0;
 
     constructor(private p: p5, private cols: number, private rows: number) {
         this.frame1 = [];
@@ -39,6 +40,15 @@ export class Ripple implements Drawable, Updatable {
     update() {
         this.current = this.current === this.frame1 ? this.frame2 : this.frame1;
         this.next = this.next === this.frame1 ? this.frame2 : this.frame1;
+
+        let x = this.p.noise(this.xoffset);
+        let y = this.p.noise(this.xoffset + 5000);
+        x *= this.p.width;
+        x = this.p.floor(x);
+        y *= this.p.height;
+        y = this.p.floor(y);
+        this.current[x][y] = 255;
+        this.xoffset += 0.01;
     }
 
     draw() {
