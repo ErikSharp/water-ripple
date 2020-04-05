@@ -1,24 +1,20 @@
 //import * as p5 from "p5/global";
 import p5 from "p5"; //if you are doing instance
-import { BouncyBox } from "./bouncyBox";
+import { Sketch } from "./sketch";
 
 import "./style.scss";
 
-const sketch = (p: p5) => {
-    let boxes: BouncyBox[] = [];
+const startFunc = (p: p5) => {
+    let sketch: Sketch;
 
-    p.setup = function() {
-        p.createCanvas(innerWidth * 0.8, innerHeight * 0.8);
-        for (let index = 0; index < 10; index++) {
-            boxes[index] = new BouncyBox(p);
-        }
+    p.setup = function () {
+        sketch = new Sketch(p);
     };
 
-    p.draw = function() {
-        boxes.forEach(b => b.update());
-        p.background(0);
-        boxes.forEach(b => b.draw());
+    p.draw = function () {
+        sketch.update();
+        sketch.draw();
     };
 };
 
-let myP5 = new p5(sketch);
+let myP5 = new p5(startFunc);
