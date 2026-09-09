@@ -10,10 +10,10 @@ export class Sketch implements Drawable, Updatable {
     rows = 300;
 
     constructor(private p: p5) {
-        // Ripple writes directly to p5's pixel buffer, which assumes one buffer
-        // pixel for each canvas coordinate.
-        p.pixelDensity(1);
         p.createCanvas(this.cols, this.rows);
+        // Ripple writes directly to p5's pixel buffer, which assumes one buffer
+        // pixel for each canvas coordinate. p5 v2 resets this during createCanvas.
+        p.pixelDensity(1);
         let ripple = new Ripple(p, this.cols, this.rows);
         this.updatables.push(ripple);
         this.drawables.push(ripple);
